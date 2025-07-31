@@ -1,23 +1,36 @@
-import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
+import { useContext, useState } from 'react';
+import { Alert } from 'react-native';
 
-export default function LoginScreen() {
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>LoginScreen</Text>
-        </View>
-    )
+import AuthContent from '../components/Auth/AuthContent';
+import LoadingOverlay from '../components/ui/LoadingOverlay';
+import { AuthContext } from '../store/auth-context';
+import { login } from '../util/auth';
+
+function LoginScreen() {
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
+
+  const authCtx = useContext(AuthContext);
+
+  async function loginHandler({ email, password }) {
+    setIsAuthenticating(true);
+    try {
+      const token = await login(email, password);
+      authCtx.authenticate(token);
+    } catch (error) {
+        console.log(error)
+        Alert.alert(
+            'Authentication failed!',
+            'Could not log you in. Please check your credentials or try again later!'
+        );
+      setIsAuthenticating(false);
+    }
+  }
+
+  if (isAuthenticating) {
+    return <LoadingOverlay message="Logging you in..." />;
+  }
+
+  return <AuthContent onAuthenticate={loginHandler} />;
 }
 
-const styles = StyleSheet.create({
-    title: {
-        color: 'black',
-        fontSize: 24,
-    },
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
+export default LoginScreen;
