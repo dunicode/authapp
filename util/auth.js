@@ -1,16 +1,40 @@
 import axios from 'axios';
 import { BASE_URL } from '../constants/box';
 
-export async function register(email, password, name) {
+export async function register(name, email, password) {
   const url = `${BASE_URL}/auth/register`;
-  const response = await axios.post(url, {
-    email: email,
-    password: password,
-    name: name
-  });
+  
+  try {
+    const response = await axios.post(url, {
+      email,
+      password,
+      name
+    });
 
-  const message = response.data.message;
-  return message;
+    if (response.status >= 200 && response.status < 300) {
+      return {
+        success: true,
+        message: response.data.message || 'Registration successful!',
+      };
+    } else {
+      throw new Error(response.data.message || 'Registration failed. Please try again.');
+    }
+  } catch (error) {
+    if (error.response) {
+      const serverMessage = error.response.data?.message || error.response.data?.error;
+      if (error.response.status === 409) {
+        throw new Error('Email already registered. Please use a different email.');
+      } else if (error.response.status === 400) {
+        throw new Error(serverMessage || 'Invalid registration data. Please check your information.');
+      } else {
+        throw new Error(serverMessage || `Registration failed (Status: ${error.response.status})`);
+      }
+    } else if (error.request) {
+      throw new Error('No response from server. Please check your network connection.');
+    } else {
+      throw new Error(error.message || 'Registration failed. Please try again.');
+    }
+  }
 }
 
 export async function login(email, password) {
@@ -37,23 +61,17 @@ export async function logout(token) {
       }
     );
 
-    // Verificar si la respuesta es exitosa (códigos 2xx)
     if (response.status >= 200 && response.status < 300) {
       return response.status;
     } else {
-      // Lanzar error para respuestas no exitosas
       throw new Error(`Logout failed with status: ${response.status}`);
     }
   } catch (error) {
-    // Convertir error de Axios en un error más manejable
     if (error.response) {
-      // El servidor respondió con un código de estado fuera del rango 2xx
       throw new Error(`Server responded with status: ${error.response.status}`);
     } else if (error.request) {
-      // La solicitud fue hecha pero no se recibió respuesta
       throw new Error('No response received from server');
     } else {
-      // Error al configurar la solicitud
       throw new Error(`Request setup error: ${error.message}`);
     }
   }
