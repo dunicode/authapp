@@ -6,7 +6,7 @@ import FlatButton from '../ui/FlatButton';
 import AuthForm from './AuthForm';
 import { Colors } from '../../constants/styles';
 
-function AuthContent({ onAuthenticate }) {
+function LoginContent({ onAuthenticate }) {
 
   const navigation = useNavigation();
 
@@ -40,7 +40,7 @@ function AuthContent({ onAuthenticate }) {
   }
 
   return (
-    <View style={styles.authContent}>
+    <View style={styles.loginContent}>
       <AuthForm
         onSubmit={submitHandler}
         credentialsInvalid={credentialsInvalid}
@@ -52,10 +52,10 @@ function AuthContent({ onAuthenticate }) {
   );
 }
 
-export default AuthContent;
+export default LoginContent;
 
 const styles = StyleSheet.create({
-  authContent: {
+  loginContent: {
     marginTop: 64,
     marginHorizontal: 32,
     padding: 16,

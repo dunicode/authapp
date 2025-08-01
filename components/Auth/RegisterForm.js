@@ -49,7 +49,7 @@ function RegisterForm({ onSubmit, credentialsInvalid }) {
         <Input
           label="Name"
           onUpdateValue={updateInputValueHandler.bind(this, 'name')}
-          value={setEnteredName}
+          value={enteredName}
           isInvalid={nameIsValid}
         />
         <Input
