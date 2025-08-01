@@ -3,7 +3,7 @@ import { Alert, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native'
 
 import FlatButton from '../ui/FlatButton';
-import AuthForm from './AuthForm';
+import LoginForm from './LoginForm';
 import { Colors } from '../../constants/styles';
 
 function LoginContent({ onAuthenticate }) {
@@ -41,7 +41,7 @@ function LoginContent({ onAuthenticate }) {
 
   return (
     <View style={styles.loginContent}>
-      <AuthForm
+      <LoginForm
         onSubmit={submitHandler}
         credentialsInvalid={credentialsInvalid}
       />

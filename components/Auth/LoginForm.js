@@ -4,11 +4,11 @@ import { StyleSheet, View } from 'react-native';
 import Button from '../ui/Button';
 import Input from './Input';
 
-function AuthForm({ onSubmit, credentialsInvalid }) {
+function LoginForm({ onSubmit, credentialsInvalid }) {
   const [enteredEmail, setEnteredEmail] = useState('');
-  const [enteredConfirmEmail, setEnteredConfirmEmail] = useState('');
+  const [enteredName, setEnteredName] = useState('');
   const [enteredPassword, setEnteredPassword] = useState('');
-  const [enteredConfirmPassword, setEnteredConfirmPassword] = useState('');
+  const [enteredPassword2, setEnteredPassword2] = useState('');
 
   const {
     email: emailIsInvalid,
@@ -62,7 +62,7 @@ function AuthForm({ onSubmit, credentialsInvalid }) {
   );
 }
 
-export default AuthForm;
+export default LoginForm;
 
 const styles = StyleSheet.create({
   buttons: {

@@ -9,12 +9,17 @@ import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import MainScreen from './screens/MainScreen';
+import { Colors } from './constants/styles';
 
 const Stack = createNativeStackNavigator();
 
 function AuthStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{
+      headerStyle: { backgroundColor: Colors.primary500 },
+      headerTintColor: 'white',
+      contentStyle: { backgroundColor: Colors.primary100 },
+    }}>
       <Stack.Screen name="Main" component={MainScreen} options={{headerShown: false}} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
@@ -24,7 +29,11 @@ function AuthStack() {
 
 function MainStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{
+      headerStyle: { backgroundColor: Colors.primary500 },
+      headerTintColor: 'white',
+      contentStyle: { backgroundColor: Colors.primary100 },
+    }}>
       <Stack.Screen name="Home" component={HomeScreen} />
     </Stack.Navigator>
   );
