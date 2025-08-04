@@ -111,6 +111,9 @@ export async function logout(token) {
     }
   } catch (error) {
     if (error.response) {
+      if (error.response.status == 401) {
+        return 200;
+      }
       throw new Error(`Server responded with status: ${error.response.status}`);
     } else if (error.request) {
       throw new Error('No response received from server');

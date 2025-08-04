@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     marginTop: 64,
     marginHorizontal: 32,
     padding: 16,
-    borderRadius: 8,
+    borderRadius: 3,
     backgroundColor: Colors.primary800,
     elevation: 2,
     shadowColor: 'black',
